@@ -52,6 +52,14 @@
   tags:
     - bootstrap-os
 
+- name: Disable ipv6 default sysctl.conf file
+  copy:
+    src: files/sysctl.conf
+    dest: /etc/sysctl.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+
 - import_tasks: 0080-system-configurations.yml
   when:
     - not dns_late

@@ -1,4 +1,16 @@
 ---
+- name: Check /etc/shadow.lock exists
+  stat:
+    path: /etc/shadow.lock
+  register: shadow_lock
+
+
+- name: Remove /etc/shadow.lock if it exists
+  file:
+    path: /etc/shadow.lock
+    state: absent
+  when: shadow_lock.stat.exists
+
 - name: User | Create User Group
   group:
     name: "{{ user.group|default(user.name) }}"
